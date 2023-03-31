@@ -1,0 +1,76 @@
+.header-fixed.toolbar-fixed .header {
+	background: #1e1e2d;
+}
+.menu-title-gray-700 .menu-item .menu-link .menu-title {
+	color: #fff;
+}
+.menu-sub-dropdown{
+    box-shadow: 2px 2px 12px #ccc;
+}
+.menu-sub .menu-title {
+	color: var(--kt-text-gray-700) !important;
+}
+.custom-table .table th {
+	writing-mode: vertical-lr;
+	background: #efefef;
+}
+.col-form-label {
+	color: var(--kt-form-label-color);
+	font-weight: bold;
+}
+
+.googleDomainSearchBar {
+	margin-left: 10px;
+}
+
+a.fs-6.text-gray-800.text-hover-primary.fw-bold.gooleDomainList.active {
+    color: green!important;
+}
+.hide{
+	display: none !important;
+}
+.modal-header .header-content {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	width: 100%;
+	justify-content: space-between;
+}
+.modal-body .radio-btns-group {
+	background: #1e1e2d;
+	padding: 20px;
+	border-radius: 10px;
+}
+.tow-loc-listing {
+	max-height: 150px;
+	overflow-y: scroll;
+	border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.tow-loc-listing li{cursor: pointer;}
+.search-loc .input-group-append {
+	border: 1px solid #E4E6EF;
+	border-radius: 0 0.47rem 0.47rem 0;
+}
+.search-loc .input-group-append .btn.btn-outline-secondary {
+	color: #fff;
+	background-color: #009ef7;
+	border-radius: 0 8px 8px 0;
+}
+.search-loc .input-group-append .btn.btn-outline-secondary:hover{
+	color: #fff;
+	background-color: #009ef7 !important;
+}
+.tow-loc-listing .list-group-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.tow-loc-listing .list-group-item span {
+	font-weight: 600;
+	background: #273c14;
+	color: #fff;
+	border-radius: 12px;
+	padding: 4px;
+	font-size: 12px;
+}
