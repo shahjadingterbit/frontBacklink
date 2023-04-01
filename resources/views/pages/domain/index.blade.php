@@ -42,11 +42,13 @@
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                    <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Backlink ID</th>
-                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Backlink domain</th>
-                                    <th class="text-end min-w-125px sorting_disabled" rowspan="1" colspan="1" style="width: 125px;">Backlink type</th>
+                                    <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Domain ID</th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Domain</th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Manage</th>
+                                    <th class="text-end min-w-125px sorting_disabled" rowspan="1" colspan="1" style="width: 125px;">State</th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">County</th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">City</th>
                                     <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Created at</th>
-                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Action</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -54,21 +56,23 @@
                             <!--begin::Table body-->
                             <tbody class="fw-bold text-gray-600">
                                 @php $i = 0; @endphp
-                                @foreach($backlinkList as $row)
+                                @foreach($domainList as $row)
                                 @php $i++; @endphp
                                 <tr class="odd">
                                     <td>
                                         <a href="/metronic8/demo8/../demo8/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary">{{ $i }}</a>
                                     </td>
-                                    <td class="text-end">{{ $row['backlink_domain'] }} </td>
+                                    <td class="text-end">{{ $row['domain'] }} </td>
                                     <td class="text-end">
-                                    {{ $row['type'] }}
+                                        <a href="{{ route('groups.edit', $row['id']) }}" class="btn btn-sm btn-light btn-success">
+                                            Assign Groups
+                                        </a>
                                     </td>
-                                    <td class="text-end">{{ date('d M, Y', strtotime($row['created_at'])); }}</td>
-                                    <td class="text-end">
-                                        <a class="badge py-3 px-4 fs-7 badge-light-warning" href="{{ route('backlinks.edit', $row['id']) }}">Edit</a>
-                                        <a class="badge py-3 px-4 fs-7 badge-light-warning" href="{{ route('backlinks.destroy',$row['id'])}} ">Delete</a>
-                                    </td>
+                                    <td class="text-end">{{ $row['state'] }}</td>
+                                    <td class="text-end">{{ $row['county'] }}</td>
+                                    <td class="text-end"> {{ $row['city'] }} </td>
+                                    <td class="text-end">{{ date('d M, Y', strtotime($row['created_at'])) }}</td>
+
                                 </tr>
                                 @endforeach
                             </tbody>

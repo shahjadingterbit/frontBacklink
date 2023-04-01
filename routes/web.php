@@ -11,8 +11,8 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\AutoCompleteController;
 use App\Http\Controllers\BacklinkController;
 use App\Http\Controllers\GroupController;
-use App\Http\Controllers\HeadingController;
-use App\Http\Controllers\HeadingRecordController;
+use App\Http\Controllers\CmsDomainController;
+use App\Http\Controllers\DomainAssignedGroup;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProjectLogController;
@@ -74,16 +74,22 @@ Route::resource('permissions', PermissionController::class);
 Route::get('/exportAllDomains', [DomainController::class, 'exportAllDomains'])->name('exportAllDomains');
 Route::get('/exportDomain', [DomainController::class, 'exportDomain'])->name('exportDomain');
 
+
+Route::resource('domains', CmsDomainController::class);
 Route::resource('groups', GroupController::class);
 Route::resource('backlinks', BacklinkController::class);
+
+// Route::get('groups/backlinks/addGroupInformation', [DomainAssignedGroup::class, 'addGroupInformation']);
+// Route::get('groups/backlinks/getKeywordInformation', [DomainAssignedGroup::class, 'getKeywordInformation']);
+Route::get('groups/backlinks/{id}', [DomainAssignedGroup::class, 'index'])->name('groups.backlinks.index');
+Route::get('groups/backlinks/assign/{groupId}', [DomainAssignedGroup::class, 'assign'])->name('assignBacklink');
+Route::post('groups/backlinks/addAndUpdate', [DomainAssignedGroup::class, 'addAndUpdate'])->name('addAndUpdateBacklink');
 
 Route::resource('locations', LocationController::class);
 Route::resource('headings', HeadingController::class);
 Route::resource('heading_records', HeadingRecordController::class);
 Route::post('project_logs/addAndUpdate', [ProjectLogController::class, 'addAndUpdate'])->name('project_logs.addAndUpdate');
-Route::get('domains/project_logs/addGroupInformation', [ProjectLogController::class, 'addGroupInformation']);
-Route::get('domains/project_logs/getKeywordInformation', [ProjectLogController::class, 'getKeywordInformation']);
-Route::get('domains/project_logs/show', [ProjectLogController::class, 'show'])->name('domains.project_logs.show');
+
 Route::resource('project_logs', ProjectLogController::class);
 Route::get('autocomplete/{id}', [AutoCompleteController::class, 'autocomplete'])->name('autocomplete');
 Route::get('googleAnalytics', [GoogleAnalyticsController::class, 'index']);

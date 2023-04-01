@@ -363,9 +363,14 @@ class Menu {
     private function _matchItemByPath($item) {
         if (isset($item['path'])) {
             $path = explode('/',$this->path);
-            if(count($path) == 3 && in_array('edit',$path) && $item['path'] == $path[0]) {
+            if(count($path) == 3 && in_array('backlinks',$path) && $this->path === $item['path'] . 'groups/backlinks/'.$path[2]) {
                 return true;
-            } else if($this->path === $item['path'] || $this->path === $item['path'] . '/index' || $this->path === $item['path'] . '/create' || $this->path === $item['path'] . '/permissions' || $this->path === $item['path'] . '/headings' || $this->path === $item['path'] . '/heading_records/create' || $this->path === $item['path'] . '/heading_records/edit' || $this->path === $item['path'] . '/project_logs/show') {
+            } else if(count($path) == 4 && in_array('backlinks',$path) && $this->path === $item['path'] . '/backlinks/assign/'.$path[3]) {
+                return true;
+            }
+            else if(count($path) == 3 && in_array('edit',$path) && $item['path'] == $path[0]) {
+                return true;
+            } else if($this->path === $item['path'] || $this->path === $item['path'] . '/index' || $this->path === $item['path'] . '/create' || $this->path === $item['path'] . '/permissions' || $this->path === $item['path'] . '/headings' || $this->path === $item['path'] . '/heading_records/create' || $this->path === $item['path'] . '/heading_records/edit' || $this->path === $item['path'] . '/backlinks/') {
                 return true;
             } 
         } else {

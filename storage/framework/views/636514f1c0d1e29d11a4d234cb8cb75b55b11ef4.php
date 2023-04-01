@@ -1,5 +1,14 @@
-<x-base-layout>
-    {{ theme()->getView('layout/demo1/toolbars/_toolbar-1') }}
+<?php if (isset($component)) { $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a = $component; } ?>
+<?php $component = App\View\Components\BaseLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('base-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\BaseLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+    <?php echo e(theme()->getView('layout/demo1/toolbars/_toolbar-1')); ?>
+
     <div class="col-xl-12 mb-5 mb-xl-10">
         <!--begin::Table Widget 4-->
         <div class="card card-flush h-xl-100">
@@ -53,24 +62,25 @@
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="fw-bold text-gray-600">
-                                @php $i = 0; @endphp
-                                @foreach($backlinkList as $row)
-                                @php $i++; @endphp
+                                <?php $i = 0; ?>
+                                <?php $__currentLoopData = $backlinkList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php $i++; ?>
                                 <tr class="odd">
                                     <td>
-                                        <a href="/metronic8/demo8/../demo8/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary">{{ $i }}</a>
+                                        <a href="/metronic8/demo8/../demo8/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary"><?php echo e($i); ?></a>
                                     </td>
-                                    <td class="text-end">{{ $row['backlink_domain'] }} </td>
+                                    <td class="text-end"><?php echo e($row['backlink_domain']); ?> </td>
                                     <td class="text-end">
-                                    {{ $row['type'] }}
+                                    <?php echo e($row['type']); ?>
+
                                     </td>
-                                    <td class="text-end">{{ date('d M, Y', strtotime($row['created_at'])); }}</td>
+                                    <td class="text-end"><?php echo e(date('d M, Y', strtotime($row['created_at']))); ?></td>
                                     <td class="text-end">
-                                        <a class="badge py-3 px-4 fs-7 badge-light-warning" href="{{ route('backlinks.edit', $row['id']) }}">Edit</a>
-                                        <a class="badge py-3 px-4 fs-7 badge-light-warning" href="{{ route('backlinks.destroy',$row['id'])}} ">Delete</a>
+                                        <a class="badge py-3 px-4 fs-7 badge-light-warning" href="<?php echo e(route('backlinks.edit', $row['id'])); ?>">Edit</a>
+                                        <a class="badge py-3 px-4 fs-7 badge-light-warning" href="<?php echo e(route('backlinks.destroy',$row['id'])); ?> ">Delete</a>
                                     </td>
                                 </tr>
-                                @endforeach
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                             <!--end::Table body-->
                         </table>
@@ -87,4 +97,9 @@
         <!--end::Table Widget 4-->
     </div>
 
-</x-base-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a)): ?>
+<?php $component = $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a; ?>
+<?php unset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a); ?>
+<?php endif; ?><?php /**PATH C:\xampp\htdocs\project-backlink\resources\views/pages/backlink/index.blade.php ENDPATH**/ ?>

@@ -271,6 +271,11 @@ return array(
                     ),
                 ),
             ),
+            'backlinks' => array(
+                'title' => 'Group Backlinks',
+                'path'  => '/groups/backlinks/assign',
+                'buttonName' => '',
+            ),
         ),
 
         'assets' => array(

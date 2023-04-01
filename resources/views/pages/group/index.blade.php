@@ -62,7 +62,7 @@
                                     </td>
                                     <td class="text-end">{{ $row['group_name'] }} </td>
                                     <td class="text-end">
-                                        <a href="{{ route('groups.edit', $row['id']) }}" class="btn btn-sm btn-light btn-success">
+                                        <a href="{{ route('groups.backlinks.index', $row['id']) }}" class="btn btn-sm btn-light btn-success">
                                             Assign Backlink
                                         </a>
                                     </td>

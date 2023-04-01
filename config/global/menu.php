@@ -119,7 +119,7 @@ return array(
         // CMS Domain
          array(
             'title'      => 'CMS Domain',
-            'path'    => 'domain',
+            'path'    => 'domains',
             'classes' => array('item' => 'me-lg-1'),
         ),
 
