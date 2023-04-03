@@ -1,25 +1,13 @@
 <?php
 
-use App\Http\Controllers\Account\SettingsController;
 use App\Http\Controllers\Auth\SocialiteLoginController;
-use App\Http\Controllers\Documentation\ReferencesController;
-use App\Http\Controllers\Logs\AuditLogsController;
-use App\Http\Controllers\Logs\SystemLogsController;
 use App\Http\Controllers\PagesController;
-use App\Http\Controllers\UsersController;
-
-use App\Http\Controllers\AutoCompleteController;
 use App\Http\Controllers\BacklinkController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\CmsDomainController;
 use App\Http\Controllers\DomainAssignedGroup;
-use App\Http\Controllers\LocationController;
-use App\Http\Controllers\PermissionController;
-use App\Http\Controllers\ProjectLogController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\GoogleAnalyticsController;
-use App\Http\Controllers\GoogleSearchConsoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,57 +33,18 @@ array_walk($menu, function ($val) {
     }
 });
 
-// Documentations pages
-Route::prefix('documentation')->group(function () {
-    Route::get('getting-started/references', [ReferencesController::class, 'index']);
-    Route::get('getting-started/changelog', [PagesController::class, 'index']);
-});
-
-// Account pages
-Route::prefix('account')->group(function () {
-    Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
-    Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
-    Route::put('settings/email', [SettingsController::class, 'changeEmail'])->name('settings.changeEmail');
-    Route::put('settings/password', [SettingsController::class, 'changePassword'])->name('settings.changePassword');
-});
-
-// Logs pages
-Route::prefix('log')->name('log.')->group(function () {
-    Route::resource('system', SystemLogsController::class)->only(['index', 'destroy']);
-    Route::resource('audit', AuditLogsController::class)->only(['index', 'destroy']);
-});
-
-Route::put('users/email', [UsersController::class, 'changeEmail'])->name('users.changeEmail');
-Route::put('users/password', [UsersController::class, 'changePassword'])->name('users.changePassword');
-Route::resource('users', UsersController::class);
-Route::get('/roles/permissions', [RoleController::class, 'permissions'])->name('roles.permissions');
 Route::resource('roles', RoleController::class);
-Route::resource('permissions', PermissionController::class);
-Route::get('/exportAllDomains', [DomainController::class, 'exportAllDomains'])->name('exportAllDomains');
-Route::get('/exportDomain', [DomainController::class, 'exportDomain'])->name('exportDomain');
-
+Route::resource('users', UserController::class);
 
 Route::resource('domains', CmsDomainController::class);
+Route::get('domains/groups/{domainId}', [DomainAssignedGroup::class, 'index'])->name('domainGroupList');
+Route::get('domains/groups/assign/{domainId}', [DomainAssignedGroup::class, 'assign'])->name('assignGroup');
+Route::post('domains/groups/addAndUpdate', [DomainAssignedGroup::class, 'addAndUpdate'])->name('addAndUpdateGroup');
 Route::resource('groups', GroupController::class);
 Route::resource('backlinks', BacklinkController::class);
-
-// Route::get('groups/backlinks/addGroupInformation', [DomainAssignedGroup::class, 'addGroupInformation']);
-// Route::get('groups/backlinks/getKeywordInformation', [DomainAssignedGroup::class, 'getKeywordInformation']);
-Route::get('groups/backlinks/{id}', [DomainAssignedGroup::class, 'index'])->name('groups.backlinks.index');
-Route::get('groups/backlinks/assign/{groupId}', [DomainAssignedGroup::class, 'assign'])->name('assignBacklink');
-Route::post('groups/backlinks/addAndUpdate', [DomainAssignedGroup::class, 'addAndUpdate'])->name('addAndUpdateBacklink');
-
-Route::resource('locations', LocationController::class);
-Route::resource('headings', HeadingController::class);
-Route::resource('heading_records', HeadingRecordController::class);
-Route::post('project_logs/addAndUpdate', [ProjectLogController::class, 'addAndUpdate'])->name('project_logs.addAndUpdate');
-
-Route::resource('project_logs', ProjectLogController::class);
-Route::get('autocomplete/{id}', [AutoCompleteController::class, 'autocomplete'])->name('autocomplete');
-Route::get('googleAnalytics', [GoogleAnalyticsController::class, 'index']);
-Route::get('googleSearchConsole', [GoogleSearchConsoleController::class, 'index']);
-
-
+Route::get('groups/backlinks/{id}', [BacklinkAssignedGroup::class, 'index'])->name('groups.backlinks.index');
+Route::get('groups/backlinks/assign/{groupId}', [BacklinkAssignedGroup::class, 'assign'])->name('assignBacklink');
+Route::post('groups/backlinks/addAndUpdate', [BacklinkAssignedGroup::class, 'addAndUpdate'])->name('addAndUpdateBacklink');
 
 /**
  * Socialite login using Google service

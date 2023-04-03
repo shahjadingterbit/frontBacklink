@@ -33,13 +33,6 @@ var KTAccountSettingsProfileDetails = (function () {
                         },
                     },
                 },
-                password: {
-                    validators: {
-                        notEmpty: {
-                            message: "password is required",
-                        },
-                    },
-                },
                 role: {
                     validators: {
                         notEmpty: {

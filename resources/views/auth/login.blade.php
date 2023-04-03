@@ -20,7 +20,7 @@
          >
            <!--begin::Title-->
            <h1 class="text-dark mb-3 mt-15 fw-b-bold fs-2x text-center">
-                {{ __('Sign In to SEO Bookers') }}
+                {{ __('Sign In to Backlink') }}
             </h1>
             <!--end::Title-->
             <form method="POST" action="{{ theme()->getPageUrl('login') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form">

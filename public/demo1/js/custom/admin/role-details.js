@@ -19,6 +19,13 @@ var RoleDetails = (function () {
                         },
                     },
                 },
+                level: {
+                    validators: {
+                        notEmpty: {
+                            message: "Level is required",
+                        },
+                    },
+                },
             },
             plugins: {
                 trigger: new FormValidation.plugins.Trigger(),

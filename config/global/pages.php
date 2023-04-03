@@ -17,50 +17,7 @@ return array(
         ),
     ),
 
-    'users'  => array(
-        'title' => 'User List',
-        '*' => array(
-            'title' => 'List Users',
-            'path'  => '/users/create',
-            'buttonName' => 'Create Users',
-            'create' => array(
-                'title' => 'Create User',
-                'path'  => '/users',
-                'buttonName' => 'List Users',
-                'assets' => array(
-                    'custom' => array(                       
-                        'js'  => array(
-                            'js/custom/admin/profile-details.js',
-                            
-                        ),
-                    ),
-                ),
-            ),
-            'edit' => array(
-                'title' => 'Edit User',
-                'path'  => '/users',
-                'buttonName' => 'List Users',
-                'assets' => array(
-                    'custom' => array(                       
-                        'js'  => array(
-                            'js/custom/admin/profile-details.js',
-                            'js/custom/admin/signin-methods.js',
-                        ),
-                    ),
-                ),
-            ),
-        ),
-        'assets' => array(
-            'custom' => array(
-                'css' => array(
-                    'plugins/custom/datatables/datatables.bundle.css',
-                ),
-                'js'  => array(
-                    'plugins/custom/datatables/datatables.bundle.js',
-                ),
-            ),
-        ),
-    ),
+
 
     'locations'  => array(
         'title' => 'Location List',
@@ -73,7 +30,7 @@ return array(
                 'path'  => '/location',
                 'buttonName' => 'List Location',
                 'assets' => array(
-                    'custom' => array(                       
+                    'custom' => array(
                         'js'  => array(
                             'js/custom/admin/location-details.js',
                         ),
@@ -85,7 +42,7 @@ return array(
                 'path'  => '/locations',
                 'buttonName' => 'List Location',
                 'assets' => array(
-                    'custom' => array(                       
+                    'custom' => array(
                         'js'  => array(
                             'js/custom/admin/location-details.js',
                         ),
@@ -104,19 +61,17 @@ return array(
             ),
         ),
     ),
-    
+
     'googleAnalytics'  => array(
         'title' => 'Google Analytics List',
         '*' => array(
             'title' => 'List',
             'buttonName' => '',
-            'domainUrl' =>'domainUrl',
+            'domainUrl' => 'domainUrl',
         ),
         'assets' => array(
             'custom' => array(
-                'css' => array(
-                    
-                ),
+                'css' => array(),
                 'js'  => array(
                     'js/custom/admin/google-analytics.js',
                 ),
@@ -129,13 +84,11 @@ return array(
         '*' => array(
             'title' => 'List',
             'buttonName' => '',
-            'domainUrl' =>'domainUrl',
+            'domainUrl' => 'domainUrl',
         ),
         'assets' => array(
             'custom' => array(
-                'css' => array(
-                    
-                ),
+                'css' => array(),
                 'js'  => array(
                     'js/custom/admin/google-searchConsole.js',
                 ),
@@ -143,7 +96,7 @@ return array(
         ),
     ),
 
-   
+
 
     'roles'  => array(
         'title' => 'Role List',
@@ -156,7 +109,7 @@ return array(
                 'path'  => '/roles',
                 'buttonName' => 'List Role',
                 'assets' => array(
-                    'custom' => array(                       
+                    'custom' => array(
                         'js'  => array(
                             'js/custom/admin/role-details.js',
                         ),
@@ -168,7 +121,7 @@ return array(
                 'path'  => '/roles',
                 'buttonName' => 'List Role',
                 'assets' => array(
-                    'custom' => array(                       
+                    'custom' => array(
                         'js'  => array(
                             'js/custom/admin/role-details.js',
                         ),
@@ -189,7 +142,7 @@ return array(
         ),
     ),
 
- 
+
 
     'permissions'  => array(
         'title' => 'Permission List',
@@ -202,7 +155,7 @@ return array(
                 'path'  => '/permissions',
                 'buttonName' => 'List Permission',
                 'assets' => array(
-                    'custom' => array(                       
+                    'custom' => array(
                         'js'  => array(
                             'js/custom/admin/permission-details.js',
                         ),
@@ -214,7 +167,7 @@ return array(
                 'path'  => '/permissions',
                 'buttonName' => 'List Permission',
                 'assets' => array(
-                    'custom' => array(                       
+                    'custom' => array(
                         'js'  => array(
                             'js/custom/admin/permission-details.js',
                         ),
@@ -234,7 +187,7 @@ return array(
             ),
         ),
     ),
-    
+
     'groups'  => array(
         'title' => 'Groups List',
         '*' => array(
@@ -246,7 +199,7 @@ return array(
                 'path'  => '/groups',
                 'buttonName' => 'Groups List',
                 'assets' => array(
-                    'custom' => array(                       
+                    'custom' => array(
                         'js'  => array(
                             'js/custom/admin/groups-details.js',
                             'js/custom/admin/jquery.repeater.js',
@@ -261,7 +214,7 @@ return array(
                 'path'  => '/groups',
                 'buttonName' => 'List Groups',
                 'assets' => array(
-                    'custom' => array(                       
+                    'custom' => array(
                         'js'  => array(
                             'js/custom/admin/groups-details.js',
                             'js/custom/admin/jquery.repeater.js',
@@ -301,7 +254,7 @@ return array(
                 'path'  => '/backlinks',
                 'buttonName' => 'Backlink List',
                 'assets' => array(
-                    'custom' => array(                       
+                    'custom' => array(
                         'js'  => array(
                             'js/custom/admin/backlink-details.js',
                         ),
@@ -313,7 +266,7 @@ return array(
                 'path'  => '/backlinks',
                 'buttonName' => 'List Backlinks',
                 'assets' => array(
-                    'custom' => array(                       
+                    'custom' => array(
                         'js'  => array(
                             'js/custom/admin/backlink-details.js',
                         ),
@@ -322,7 +275,74 @@ return array(
             ),
         ),
     ),
-    
+
+    'users'  => array(
+        'title' => 'User List',
+        '*' => array(
+            'title' => 'List Users',
+            'path'  => '/users/create',
+            'buttonName' => 'Create Users',
+            'create' => array(
+                'title' => 'Create User',
+                'path'  => '/users',
+                'buttonName' => 'List Users',
+                'assets' => array(
+                    'custom' => array(
+                        'js'  => array(
+                            'js/custom/admin/profile-details.js',
+
+                        ),
+                    ),
+                ),
+            ),
+            'edit' => array(
+                'title' => 'Edit User',
+                'path'  => '/users',
+                'buttonName' => 'List Users',
+                'assets' => array(
+                    'custom' => array(
+                        'js'  => array(
+                            'js/custom/admin/profile-edit-details.js',
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+
+    'roles'  => array(
+        'title' => 'Role List',
+        '*' => array(
+            'title' => 'List Role',
+            'path'  => '/roles/create',
+            'buttonName' => 'Create Role',
+            'create' => array(
+                'title' => 'Create Role',
+                'path'  => '/roles',
+                'buttonName' => 'List Role',
+                'assets' => array(
+                    'custom' => array(
+                        'js'  => array(
+                            'js/custom/admin/role-details.js',
+                        ),
+                    ),
+                ),
+            ),
+            'edit' => array(
+                'title' => 'Edit Role',
+                'path'  => '/roles',
+                'buttonName' => 'List Role',
+                'assets' => array(
+                    'custom' => array(
+                        'js'  => array(
+                            'js/custom/admin/role-details.js',
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+
     'login'           => array(
         'title'  => 'Login',
         'assets' => array(

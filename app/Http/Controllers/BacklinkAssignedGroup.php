@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class DomainAssignedGroup extends Controller
+class BacklinkAssignedGroup extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,23 +13,21 @@ class DomainAssignedGroup extends Controller
      * @return \Illuminate\Http\Response
      */
     private $endpoint_url = "http://localhost:3001/api";
-    public function index($domainId)
+    public function index($group_id)
     {
         $data = [];
-        $domainDetail = Http::get($this->endpoint_url . '/domains/' . $domainId);
-        $domainInformation = $domainDetail->json();
-        // echo "<pre>";print_r($domainInformation);die;
-
-        $response = Http::get($this->endpoint_url . '/domainAssignedGroup/' . $domainId);
-        $domainGroupList = $response->json();
-        $data['domainId'] =  $domainId ?? '';
-        $data['domainName'] =  $domainInformation[0]['domain'] ?? '';
+        $groupDetail = Http::get($this->endpoint_url . '/groups/' . $group_id);
+        $groupInformation = $groupDetail->json();
+        $response = Http::get($this->endpoint_url . '/groupAssignedBacklink/' . $group_id);
+        $groupBacklinkList = $response->json();
+        $data['groupId'] =  $group_id ?? '';
+        $data['groupName'] =  $groupInformation['group_name'] ?? '';
         if ($response->status() == 200) {
-            $data['domainGroupList'] =  $domainGroupList;
+            $data['groupBacklinkList'] =  $groupBacklinkList;
         } else {
-            $data['domainGroupList'] =  [];
+            $data['groupBacklinkList'] =  [];
         }
-        return view('pages.domain.group.index', $data);
+        return view('pages.group.backlinks.index', $data);
     }
 
     /**
@@ -46,48 +44,46 @@ class DomainAssignedGroup extends Controller
             return redirect()->intended('backlinks');
         }
     }
-    public function assign($domainId)
+    public function assign($groupId)
     {
-        $assignedGroupIds = [];
         $data = [];
-        $domainDetail = Http::get($this->endpoint_url . '/domains/' . $domainId);
-        $domainInformation = $domainDetail->json();
-        $data['domainId'] =  $domainId ?? '';
-        $data['domainName'] =  $domainInformation[0]['domain'] ?? '';
-        $allgroups = Http::get($this->endpoint_url . '/groups');
-        $allGroupList = $allgroups->json();
-        $response = Http::get($this->endpoint_url . '/domainAssignedGroup/' . $domainId);
-        $domainGroupList = $response->json();
-
-        $data['allGroupList'] =  $allGroupList ?? [];
-        if ($response->status() == 200 && !empty($domainGroupList)) {
-            foreach ($domainGroupList as $row) {
-                $assignedGroupIds[] = $row['group_id'];
+        $assignedBacklinkIds = [];
+        $groupDetail = Http::get($this->endpoint_url . '/groups/' . $groupId);
+        $groupInformation = $groupDetail->json();
+        $allbanklinks = Http::get($this->endpoint_url . '/backlinks');
+        $allBacklinkList = $allbanklinks->json();
+        $response = Http::get($this->endpoint_url . '/groupAssignedBacklink/' . $groupId);
+        $groupBacklinkList = $response->json();
+        $data['groupId'] =  $groupId ?? '';
+        $data['groupName'] =  $groupInformation['group_name'] ?? '';
+        $data['allBacklinkList'] =  $allBacklinkList ?? [];
+        if ($response->status() == 200 && !empty($groupBacklinkList)) {
+            foreach ($groupBacklinkList as $row) {
+                $assignedBacklinkIds[] = $row['backlink_domain_id'];
             }
         }
-        $data['assignedGroupIds'] =  $assignedGroupIds;
-        $data['domainGroupList'] =  $domainGroupList ?? [];
-        return view('pages.domain.group.all_group_list', $data);
+        $data['assignedBacklinkIds'] =  $assignedBacklinkIds;
+        $data['groupBacklinkList'] =  $groupBacklinkList ?? [];
+        return view('pages.group.backlinks.backlink_list', $data);
     }
 
     public function addAndUpdate(Request $request)
     {
         $data = [];
-        $data['domain_id'] = $request->domain_id;
-        if (!empty($request->group)) {
-            $data['group_ids'] = $request->group;
+        $data['group_id'] = $request->group_id;
+        if (!empty($request->backlink)) {
+            $data['backlink_domain_ids'] = $request->backlink;
         } else {
-            $data['group_ids'] = array();
+            $data['backlink_domain_ids'] = array();
         }
-        // echo "<pre>";print_r($data);die;
         if ($request->method == 'PUT') {
-            $response = Http::put($this->endpoint_url . '/domainAssignedGroup/updateGroupFromDomain', $data);
+            $response = Http::put($this->endpoint_url . '/groupAssignedBacklink/updateBacklinkToGroup', $data);
         } else {
-            $response = Http::post($this->endpoint_url . '/domainAssignedGroup/assignGroupToDomain', $data);
+            $response = Http::post($this->endpoint_url . '/groupAssignedBacklink/assignBacklinkToGroup', $data);
         }
         $jsonData = $response->json();
-        if ($response->status() == 200) {
-            return redirect()->intended('domains/groups/' . $request->domain_id);
+        if ($jsonData['status']) {
+            return redirect()->intended('groups/backlinks/' . $request->group_id);
         }
     }
 

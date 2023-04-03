@@ -73,7 +73,7 @@
                                     </td>
                                     <td class="text-end"><?php echo e($row['domain']); ?> </td>
                                     <td class="text-end">
-                                        <a href="<?php echo e(route('groups.edit', $row['id'])); ?>" class="btn btn-sm btn-light btn-success">
+                                        <a href="<?php echo e(route('domainGroupList', $row['id'])); ?>" class="btn btn-sm btn-light btn-success">
                                             Assign Groups
                                         </a>
                                     </td>

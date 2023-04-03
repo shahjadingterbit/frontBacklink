@@ -6,7 +6,7 @@
         <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#group_details" aria-expanded="true" aria-controls="group_details">
             <!--begin::Card title-->
             <div class="card-title m-0">
-                <h3 class="fw-bolder m-0">{{ __('Edit') }} {{ $roleData['name']  }}</h3>
+                <h3 class="fw-bolder m-0">{{ __('Add Role') }} </h3>
             </div>
             <!--end::Card title-->
         </div>
@@ -14,9 +14,8 @@
         <!--begin::Content-->
         <div id="group_details" class="collapse show">
             <!--begin::Form-->
-            <form id="role_details_form" class="form" method="POST" action="{{ route('roles.update', $roleData['id']) }}" enctype="multipart/form-data">
+            <form id="role_details_form" class="form" method="POST" action="{{ route('roles.store') }}" enctype="multipart/form-data">
                 @csrf
-                @method('PUT')
                 <!--begin::Card body-->
                 <div class="card-body border-top p-9">
                     <!--begin::Input group-->
@@ -30,8 +29,7 @@
                             <div class="row">
                                 <!--begin::Col-->
                                 <div class="col-lg-12 fv-row">
-                                    <input type="text" name="name" id="name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Name" value="{{ old('first_name', $roleData['name'] ?? '') }}" />
-                                    <input type="hidden" name="role_id" id="role_id" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Name" value="{{ old('first_name', $roleData['id'] ?? '') }}" />
+                                    <input type="text" name="name" id="name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Name" value="" />
                                 </div>
                                 <!--end::Col-->
                             </div>
@@ -51,7 +49,7 @@
                             <div class="row">
                                 <!--begin::Col-->
                                 <div class="col-lg-12 fv-row">
-                                    <input type="text" name="level" id="level" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="level" value="{{ old('first_name', $roleData['level'] ?? '') }}" />
+                                    <input type="text" name="level" id="level" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="level" value="" />
                                     
                                 </div>
                                 <!--end::Col-->
@@ -68,7 +66,7 @@
                 <div class="card-footer d-flex justify-content-end py-6 px-9">
                     <a type="reset" class="btn btn-white btn-active-light-primary me-2">{{ __('Discard') }}</a>
                     <button type="submit" class="btn btn-primary" id="role_details_submit">
-                        @include('partials.general._button-indicator', ['label' => __('Update Changes')])
+                        @include('partials.general._button-indicator', ['label' => __('Save Changes')])
                     </button>
                 </div>
                 <!--end::Actions-->

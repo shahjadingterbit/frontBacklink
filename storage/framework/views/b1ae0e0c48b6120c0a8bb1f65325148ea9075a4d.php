@@ -5,7 +5,7 @@
         <!--begin::Copyright-->
         <div class="text-dark order-2 order-md-1">
             <span class="text-muted fw-bold me-1"><?php echo e(date("Y")); ?>&copy;</span>
-            <a href="<?php echo e(theme()->getOption('product', 'website')); ?>" target="_blank" class="text-gray-800 text-hover-primary">SEO Ecommerce</a>
+            <a href="<?php echo e(theme()->getOption('product', 'website')); ?>" target="_blank" class="text-gray-800 text-hover-primary">Backlink Project</a>
         </div>
         <!--end::Copyright-->
 

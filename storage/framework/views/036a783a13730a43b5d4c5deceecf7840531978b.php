@@ -1,32 +1,27 @@
-<x-base-layout>
-    {{ theme()->getView('layout/demo1/toolbars/_toolbar-1') }}
+<?php if (isset($component)) { $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a = $component; } ?>
+<?php $component = App\View\Components\BaseLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('base-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\BaseLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+    <?php echo e(theme()->getView('layout/demo1/toolbars/_toolbar-1')); ?>
+
     <div class="col-xl-12 mb-5 mb-xl-10">
         <!--begin::Table Widget 4-->
         <div class="card card-flush h-xl-100">
             <!--begin::Card header-->
             <div class="card-header pt-7">
                 <!--begin::Title-->
-                <h3 class="card-title align-items-start flex-column" style="display:inline">
-                    @if(!empty($groupName))
-                    Backlink List of <a href="{{ route('groups.index') }}">  {{ $groupName }} </a>
-                    @endif
+                <h3 class="card-title align-items-start flex-column">
                 </h3>
                 <!--end::Title-->
                 <!--begin::Actions-->
                 <div class="card-toolbar">
                     <!--begin::Filters-->
                     <div class="d-flex flex-stack flex-wrap gap-4">
-                        <div class="d-flex align-items-center py-1">
-                            <div>
-                                @if(count($groupBacklinkList) > 0)
-                                @php $message = "Update Backlink"; @endphp
-                                @else
-                                @php $message = "Assign Backlink"; @endphp
-                                @endif
-                                <a href="{{ route('assignBacklink', $groupId) }}" class="btn btn-sm btn-primary fw-bolder">{{$message}}
-                                </a>
-                            </div>
-                        </div>
                         <!--begin::Search-->
                         <div class="position-relative my-1">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
@@ -56,26 +51,33 @@
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                    <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Backlink ID</th>
-                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Backlink</th>
+                                    <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">#</th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Name</th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Level</th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">created At</th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Action</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
                             <!--end::Table head-->
                             <!--begin::Table body-->
                             <tbody class="fw-bold text-gray-600">
-                                @php $i = 0; @endphp
-                                @forelse($groupBacklinkList as $row)
-                                @php $i++; @endphp
+                                <?php $i = 0; ?>
+                                <?php $__currentLoopData = $roleList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php $i++; ?>
                                 <tr class="odd">
                                     <td>
-                                        <a href="/metronic8/demo8/../demo8/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary">{{ $i }}</a>
+                                        <a href="/metronic8/demo8/../demo8/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary"><?php echo e($i); ?></a>
                                     </td>
-                                    <td class="text-end">{{ $row['backlink_domain'] }} </td>
+                                    <td class="text-end"><?php echo e($row['name']); ?> </td>
+                                    <td class="text-end"><?php echo e($row['level']); ?> </td>
+
+                                    <td class="text-end"><?php echo e(date('d M, Y', strtotime($row['created_at']))); ?></td>
+                                    <td class="text-end">
+                                        <a class="badge py-3 px-4 fs-7 badge-light-warning" href="<?php echo e(route('roles.edit', $row['id'])); ?>">Edit</a>
+                                    </td>
                                 </tr>
-                                @empty
-                                <p>No Backlink</p>
-                                @endforelse
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
                             <!--end::Table body-->
                         </table>
@@ -92,4 +94,9 @@
         <!--end::Table Widget 4-->
     </div>
 
-</x-base-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a)): ?>
+<?php $component = $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a; ?>
+<?php unset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a); ?>
+<?php endif; ?><?php /**PATH C:\xampp\htdocs\project-backlink\resources\views/pages/role/index.blade.php ENDPATH**/ ?>

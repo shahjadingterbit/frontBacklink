@@ -15,11 +15,14 @@
             <!--begin::Card header-->
             <div class="card-header pt-7">
                 <!--begin::Title-->
-                <h3 class="card-title align-items-start flex-column">
+                <h3 class="card-title align-items-start flex-column" style="display:inline">
+                    <a href="<?php echo e(route('groups.index')); ?>"> All Groups </a> >>
+                    <a href="<?php echo e(route('groups.backlinks.index',$groupId)); ?>"> Backlink of <?php echo e($groupName); ?> </a> >> 
                     <?php if(!empty($groupName)): ?>
-                    All Backlink List of <?php echo e($groupName); ?> AND not Assinged
+                    All Backlink List
                     <?php endif; ?>
                 </h3>
+
                 <!--end::Title-->
                 <!--begin::Actions-->
                 <div class="card-toolbar">
@@ -28,14 +31,14 @@
                         <div class="d-flex align-items-center py-1">
                             <div>
                                 <?php if(count($assignedBacklinkIds) > 0): ?>
-                                <?php 
-                                    $message = "Update Backlink";
-                                    $method = "PUT";
+                                <?php
+                                $message = "Update Backlink";
+                                $method = "PUT";
                                 ?>
                                 <?php else: ?>
-                                <?php 
-                                    $message = "Assign Backlink";
-                                    $method = "POST";
+                                <?php
+                                $message = "Assign Backlink";
+                                $method = "POST";
                                 ?>
                                 <?php endif; ?>
                             </div>
@@ -58,6 +61,7 @@
                 </div>
                 <!--end::Actions-->
             </div>
+
             <!--end::Card header-->
             <form id="assign_backlink_to_group_form" class="form" method="POST" action="<?php echo e(route('addAndUpdateBacklink')); ?>" enctype="multipart/form-data">
                 <?php echo csrf_field(); ?>
@@ -91,8 +95,8 @@
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                             <p>No Backlink</p>
                             <?php endif; ?>
-                            <input class="form-check-input" type="hidden" name="group_id" value="<?php echo e($groupId); ?>" >
-                            <input class="form-check-input" type="hidden" name="method" value="<?php echo e($method); ?>" >
+                            <input class="form-check-input" type="hidden" name="group_id" value="<?php echo e($groupId); ?>">
+                            <input class="form-check-input" type="hidden" name="method" value="<?php echo e($method); ?>">
                         </div>
                         <!--end::Body-->
                     </div>

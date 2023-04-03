@@ -7,13 +7,10 @@
             <div class="card-header pt-7">
                 <!--begin::Title-->
                 <h3 class="card-title align-items-start flex-column" style="display:inline">
-                    <a href="{{ route('groups.index') }}"> All Groups </a> >>
-                    <a href="{{ route('groups.backlinks.index',$groupId) }}"> Backlink of {{ $groupName }} </a> >> 
-                    @if(!empty($groupName))
-                    All Backlink List
-                    @endif
+                    <a href="{{ route('domains.index') }}"> All Domain </a> >>
+                    <a href="{{ route('domainGroupList',$domainId) }}"> Group of {{ $domainName }} </a> >> 
+                    All Group List
                 </h3>
-
                 <!--end::Title-->
                 <!--begin::Actions-->
                 <div class="card-toolbar">
@@ -21,14 +18,14 @@
                     <div class="d-flex flex-stack flex-wrap gap-4">
                         <div class="d-flex align-items-center py-1">
                             <div>
-                                @if(count($assignedBacklinkIds) > 0)
+                                @if(count($assignedGroupIds) > 0)
                                 @php
-                                $message = "Update Backlink";
+                                $message = "Update Group";
                                 $method = "PUT";
                                 @endphp
                                 @else
                                 @php
-                                $message = "Assign Backlink";
+                                $message = "Assign Group";
                                 $method = "POST";
                                 @endphp
                                 @endif
@@ -54,7 +51,7 @@
             </div>
 
             <!--end::Card header-->
-            <form id="assign_backlink_to_group_form" class="form" method="POST" action="{{ route('addAndUpdateBacklink') }}" enctype="multipart/form-data">
+            <form id="assign_domain_to_group_form" class="form" method="POST" action="{{ route('addAndUpdateGroup') }}" enctype="multipart/form-data">
                 @csrf
                 <!--begin::Card body-->
                 <div class="col-xl-12">
@@ -62,20 +59,20 @@
                     <div class="card card-xl-stretch mb-5 mb-xl-8">
                         <!--begin::Body-->
                         <div class="card-body pt-2">
-                            @forelse($allBacklinkList as $row)
+                            @forelse($allGroupList as $row)
                             <!--begin::Item-->
                             <div class="d-flex align-items-center mb-8">
                                 <!--begin::Checkbox-->
                                 <div class="form-check form-check-custom form-check-solid mx-5">
-                                    <input class="form-check-input" type="checkbox" name="backlink[]" value="{{ $row['id'] }}" @if(in_array($row['id'],$assignedBacklinkIds)) checked @endif>
+                                    <input class="form-check-input" type="checkbox" name="group[]" value="{{ $row['id'] }}" @if(in_array($row['id'],$assignedGroupIds)) checked @endif>
                                 </div>
                                 <!--end::Checkbox-->
                                 <!--begin::Description-->
                                 <div class="flex-grow-1">
-                                    {{ $row['backlink_domain'] }}
+                                    {{ $row['group_name'] }}
                                 </div>
                                 <!--end::Description-->
-                                @if(in_array($row['id'],$assignedBacklinkIds))
+                                @if(in_array($row['id'],$assignedGroupIds))
                                 <span class="badge badge-light-success fs-8 fw-bold">Assigned</span>
                                 @else
                                 <span class="badge badge-light-danger fs-8 fw-bold">Not Assigned</span>
@@ -83,9 +80,9 @@
                             </div>
                             <!--end:Item-->
                             @empty
-                            <p>No Backlink</p>
+                            <p>No Group</p>
                             @endforelse
-                            <input class="form-check-input" type="hidden" name="group_id" value="{{ $groupId }}">
+                            <input class="form-check-input" type="hidden" name="domain_id" value="{{ $domainId }}">
                             <input class="form-check-input" type="hidden" name="method" value="{{ $method }}">
                         </div>
                         <!--end::Body-->
@@ -96,7 +93,7 @@
                 <div class="card-footer d-flex justify-content-end py-6 px-9">
                     <button type="reset" class="btn btn-white btn-active-light-primary me-2">Discard</button>
 
-                    <button type="submit" class="btn btn-primary" id="assign_backlink_group">
+                    <button type="submit" class="btn btn-primary" id="assign_domain_group">
                         <!--begin::Indicator-->
                         <span class="indicator-label">
                             {{$message}}

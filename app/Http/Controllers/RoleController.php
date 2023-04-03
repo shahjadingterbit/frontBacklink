@@ -2,35 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
-use App\Models\Role;
-use App\Traits\Authorizable;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use App\DataTables\RoleDataTable;
-
+use Illuminate\Support\Facades\Http;
 
 class RoleController extends Controller
 {
-    use Authorizable;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(RoleDataTable $dataTable)
+    private $endpoint_url = "http://localhost:3001/api";
+    public function index()
     {
-        return $dataTable->render('pages.role.index');
+        $response = Http::get($this->endpoint_url . '/roles');
+        $roleList = $response->json();
+        return view('pages.role.index', ['roleList' => $roleList]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return view('pages.role.add.create');
+        return view('pages.role.create');
     }
 
     /**
@@ -41,75 +33,44 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, ['name' => 'required|unique:roles']);
-        if( Role::create($request->only('name')) ) {
+        $data['roleName'] = $request->name;
+        $data['level'] = $request->level;
+        $response = Http::post($this->endpoint_url . '/roles/addRole', $data);
+        $response->json();
+        if ($response->status() == 200) {
             return redirect()->intended('roles');
         }
-        return redirect()->intended('roles');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Role $role)
-    {
-        dd('Pending for implementation.');
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Role $role)
+    public function edit($id)
     {
-        $role = Role::findOrFail($role->id);
-
-        return view('pages.role.edit_role', compact('role'));
+        $data = [];
+        $response = Http::get($this->endpoint_url . '/roles/'.$id);
+        $roleData = $response->json();
+        $data['roleData'] = $roleData;
+        return view('pages.role.edit_role', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role)
+    public function update(Request $request)
     {
-        if($role = Role::findOrFail($role->id)) {
-            // admin role has everything
-            if($role->name === 'Admin') {
-                $role->syncPermissions(Permission::all());
-                return redirect()->route('roles.index');
-            }
-            $permissions = $request->get('permissions', []);
-            $role->syncPermissions($permissions);
-            return redirect()->back()->with('success', $role->name . ' permissions has been updated.');
-        } else {
-            return redirect()->back()->with('error', 'Role with id '. $role->id .' note found.');
+        $data['id'] = $request->role_id;
+        $data['roleName'] = $request->name;
+        $data['level'] = $request->level;
+
+        $response = Http::put($this->endpoint_url . '/roles/updateRole', $data);
+        $response->json();
+        if ($response->status() == 200) {
+            return redirect()->intended('roles');
         }
-        return redirect()->back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Role $role)
-    {
-        return Role::findOrFail($role->id)->delete();
-    }
-
-    public function permissions(){
-        $roles = Role::all();
-        $permissions = Permission::all();
-        return view('pages.role.permissions', compact('roles', 'permissions'));
     }
 }

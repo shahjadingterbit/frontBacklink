@@ -116,8 +116,22 @@ return array(
             'classes' => array('item' => 'me-lg-1'),
         ),
 
+        // Users
+        array(
+            'title'   => 'Users',
+            'path'    => 'users',
+            'classes' => array('item' => 'me-lg-1'),
+        ),
+
+        // Users
+        array(
+            'title'   => 'Roles',
+            'path'    => 'roles',
+            'classes' => array('item' => 'me-lg-1'),
+        ),
+
         // CMS Domain
-         array(
+        array(
             'title'      => 'CMS Domain',
             'path'    => 'domains',
             'classes' => array('item' => 'me-lg-1'),
@@ -129,7 +143,7 @@ return array(
             'path'    => 'backlinks',
             'classes' => array('item' => 'me-lg-1'),
         ),
-       
+
         // Groups
         array(
             'title'      => 'Groups',
