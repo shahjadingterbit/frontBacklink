@@ -6,8 +6,11 @@ use App\Http\Controllers\BacklinkController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\CmsDomainController;
 use App\Http\Controllers\DomainAssignedGroup;
+use App\Http\Controllers\BacklinkAssignedGroup;
+use App\Http\Controllers\UserAssignedDomain;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,30 +29,32 @@ use Illuminate\Support\Facades\Route;
 // });
 
 $menu = theme()->getMenu();
-// echo "<pre>";print_r($menu);die;
 array_walk($menu, function ($val) {
     if (isset($val['path'])) {
         $route = Route::get($val['path'], [PagesController::class, 'index']);
     }
 });
 
-Route::resource('roles', RoleController::class);
-Route::resource('users', UserController::class);
+Route::post('userlogin', [LoginController::class, 'userlogin'])->name('userlogin');
+Route::get('/login', [LoginController::class, 'create'])->name('create');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::resource('domains', CmsDomainController::class);
-Route::get('domains/groups/{domainId}', [DomainAssignedGroup::class, 'index'])->name('domainGroupList');
-Route::get('domains/groups/assign/{domainId}', [DomainAssignedGroup::class, 'assign'])->name('assignGroup');
-Route::post('domains/groups/addAndUpdate', [DomainAssignedGroup::class, 'addAndUpdate'])->name('addAndUpdateGroup');
-Route::resource('groups', GroupController::class);
-Route::resource('backlinks', BacklinkController::class);
-Route::get('groups/backlinks/{id}', [BacklinkAssignedGroup::class, 'index'])->name('groups.backlinks.index');
-Route::get('groups/backlinks/assign/{groupId}', [BacklinkAssignedGroup::class, 'assign'])->name('assignBacklink');
-Route::post('groups/backlinks/addAndUpdate', [BacklinkAssignedGroup::class, 'addAndUpdate'])->name('addAndUpdateBacklink');
+Route::middleware('checksession')->group(function () {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    Route::get('users/domains/{userId}', [UserAssignedDomain::class, 'index'])->name('userDomainList');
+    Route::get('users/domains/assign/{userId}', [UserAssignedDomain::class, 'assign'])->name('assignDomain');
+    Route::post('users/domains/addAndUpdateDomain', [UserAssignedDomain::class, 'addAndUpdateDomain'])->name('addAndUpdateDomain');
 
-/**
- * Socialite login using Google service
- * https://laravel.com/docs/8.x/socialite
- */
-Route::get('/auth/redirect/{provider}', [SocialiteLoginController::class, 'redirect']);
+    Route::resource('domains', CmsDomainController::class);
+    Route::get('domains/groups/{domainId}', [DomainAssignedGroup::class, 'index'])->name('domainGroupList');
+    Route::get('domains/groups/assign/{domainId}', [DomainAssignedGroup::class, 'assign'])->name('assignGroup');
+    Route::post('domains/groups/addAndUpdate', [DomainAssignedGroup::class, 'addAndUpdate'])->name('addAndUpdateGroup');
+    Route::resource('groups', GroupController::class);
+    Route::resource('backlinks', BacklinkController::class);
+    Route::get('groups/backlinks/{id}', [BacklinkAssignedGroup::class, 'index'])->name('groups.backlinks.index');
+    Route::get('groups/backlinks/assign/{groupId}', [BacklinkAssignedGroup::class, 'assign'])->name('assignBacklink');
+    Route::post('groups/backlinks/addAndUpdate', [BacklinkAssignedGroup::class, 'addAndUpdate'])->name('addAndUpdateBacklink');
+});
 
-require __DIR__ . '/auth.php';
+

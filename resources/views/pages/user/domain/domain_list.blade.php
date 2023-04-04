@@ -1,14 +1,5 @@
-<?php if (isset($component)) { $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a = $component; } ?>
-<?php $component = App\View\Components\BaseLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
-<?php $component->withName('base-layout'); ?>
-<?php if ($component->shouldRender()): ?>
-<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
-<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\BaseLayout::class))->getConstructor()): ?>
-<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
-<?php endif; ?>
-<?php $component->withAttributes([]); ?>
-    <?php echo e(theme()->getView('layout/demo1/toolbars/_toolbar-1')); ?>
-
+<x-base-layout>
+    {{ theme()->getView('layout/demo1/toolbars/_toolbar-1') }}
     <div class="col-xl-12 mb-5 mb-xl-10">
         <!--begin::Table Widget 4-->
         <div class="card card-flush h-xl-100">
@@ -16,10 +7,13 @@
             <div class="card-header pt-7">
                 <!--begin::Title-->
                 <h3 class="card-title align-items-start flex-column" style="display:inline">
-                    <a href="<?php echo e(route('domains.index')); ?>"> All Domain </a> >>
-                    <a href="<?php echo e(route('domainGroupList',$domainId)); ?>"> Group of <?php echo e($domainName); ?> </a> >> 
-                    All Group List
+                    <a href="{{ route('users.index') }}"> All Users </a> >>
+                    <a href="{{ route('userDomainList',$userId) }}"> Domain of {{ $userName }} </a> >>
+                    @if(!empty($userName))
+                    All Domain List
+                    @endif
                 </h3>
+
                 <!--end::Title-->
                 <!--begin::Actions-->
                 <div class="card-toolbar">
@@ -27,17 +21,17 @@
                     <div class="d-flex flex-stack flex-wrap gap-4">
                         <div class="d-flex align-items-center py-1">
                             <div>
-                                <?php if(count($assignedGroupIds) > 0): ?>
-                                <?php
-                                $message = "Update Group";
+                                @if(count($assignedDomainIds) > 0)
+                                @php
+                                $message = "Update Domain";
                                 $method = "PUT";
-                                ?>
-                                <?php else: ?>
-                                <?php
-                                $message = "Assign Group";
+                                @endphp
+                                @else
+                                @php
+                                $message = "Add Domain";
                                 $method = "POST";
-                                ?>
-                                <?php endif; ?>
+                                @endphp
+                                @endif
                             </div>
                         </div>
                         <!--begin::Search-->
@@ -60,54 +54,53 @@
             </div>
 
             <!--end::Card header-->
-            <form id="assign_domain_to_group_form" class="form" method="POST" action="<?php echo e(route('addAndUpdateGroup')); ?>" enctype="multipart/form-data">
-                <?php echo csrf_field(); ?>
+            <form id="assign_domain_to_group_form" class="form" method="POST" action="{{ route('addAndUpdateDomain') }}" enctype="multipart/form-data">
+                @csrf
                 <!--begin::Card body-->
                 <div class="col-xl-12">
                     <!--begin::List Widget 3-->
                     <div class="card card-xl-stretch mb-5 mb-xl-8">
                         <!--begin::Body-->
                         <div class="card-body pt-2">
-                            <?php $__empty_1 = true; $__currentLoopData = $allGroupList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                            @forelse($allDomainList as $row)
                             <!--begin::Item-->
                             <div class="d-flex align-items-center mb-8">
                                 <!--begin::Checkbox-->
                                 <div class="form-check form-check-custom form-check-solid mx-5">
-                                    <input class="form-check-input" type="checkbox" name="group[]" value="<?php echo e($row['group_id']); ?>" <?php if(in_array($row['group_id'],$assignedGroupIds)): ?> checked <?php endif; ?>>
+                                    <input class="form-check-input" type="checkbox" name="domain[]" value="{{ $row['domain_id'] }}" @if(in_array($row['domain_id'],$assignedDomainIds)) checked @endif>
                                 </div>
                                 <!--end::Checkbox-->
                                 <!--begin::Description-->
                                 <div class="flex-grow-1">
-                                    <?php echo e($row['group_name']); ?>
-
+                                    {{ $row['domain'] }}
                                 </div>
                                 <!--end::Description-->
-                                <?php if(in_array($row['group_id'],$assignedGroupIds)): ?>
+                                @if(in_array($row['domain_id'],$assignedDomainIds))
                                 <span class="badge badge-light-success fs-8 fw-bold">Assigned</span>
-                                <?php else: ?>
+                                @else
                                 <span class="badge badge-light-danger fs-8 fw-bold">Not Assigned</span>
-                                <?php endif; ?>
+                                @endif
                             </div>
                             <!--end:Item-->
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                            <p>No Group</p>
-                            <?php endif; ?>
-                            <input class="form-check-input" type="hidden" name="domain_id" value="<?php echo e($domainId); ?>">
-                            <input class="form-check-input" type="hidden" name="method" value="<?php echo e($method); ?>">
+                            @empty
+                            <p>No Domain</p>
+                            @endforelse
+                            <input class="form-check-input" type="hidden" name="user_id" value="{{ $userId }}">
+                            <input class="form-check-input" type="hidden" name="method" value="{{ $method }}">
                         </div>
                         <!--end::Body-->
                     </div>
                     <!--end:List Widget 3-->
                 </div>
                 <!--end::Card body-->
+                @if(count($allDomainList) > 0)
                 <div class="card-footer d-flex justify-content-end py-6 px-9">
                     <button type="reset" class="btn btn-white btn-active-light-primary me-2">Discard</button>
 
                     <button type="submit" class="btn btn-primary" id="assign_domain_group">
                         <!--begin::Indicator-->
                         <span class="indicator-label">
-                            <?php echo e($message); ?>
-
+                            {{$message}}
                         </span>
                         <span class="indicator-progress">
                             Please wait...
@@ -116,15 +109,11 @@
                         <!--end::Indicator-->
                     </button>
                 </div>
+                @endif
             </form>
             <!--end::Form-->
         </div>
         <!--end::Table Widget 4-->
     </div>
 
- <?php echo $__env->renderComponent(); ?>
-<?php endif; ?>
-<?php if (isset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a)): ?>
-<?php $component = $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a; ?>
-<?php unset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a); ?>
-<?php endif; ?><?php /**PATH C:\xampp\htdocs\project-backlink\resources\views/pages/domain/group/all_group_list.blade.php ENDPATH**/ ?>
+</x-base-layout>

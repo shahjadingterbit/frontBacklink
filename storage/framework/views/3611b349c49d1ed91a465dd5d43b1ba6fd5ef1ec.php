@@ -54,6 +54,7 @@
                                     <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">#</th>
                                     <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Name</th>
                                     <th class="text-end min-w-125px sorting_disabled" rowspan="1" colspan="1" style="width: 125px;">User Name</th>
+                                    <th class="text-end min-w-125px sorting_disabled" rowspan="1" colspan="1" style="width: 125px;">Manage Domain</th>
                                     <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Email</th>
                                     <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Role</th>
                                     <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">created At</th>
@@ -73,6 +74,14 @@
                                     </td>
                                     <td class="text-end"><?php echo e($row['name']); ?> </td>
                                     <td class="text-end"><?php echo e($row['username']); ?> </td>
+
+                                    <td class="text-end">
+                                        <?php if($row['role_id']['id'] != 1): ?>
+                                        <a href="<?php echo e(route('userDomainList', $row['id'])); ?>" class="btn btn-sm btn-light btn-success">
+                                            User Domains
+                                        </a>
+                                        <?php endif; ?>
+                                    </td>
                                     <td class="text-end"><?php echo e($row['email']); ?> </td>
                                     <td class="text-end"><?php echo e($row['role_id']['name']); ?> </td>
                                     <td class="text-end"><?php echo e(date('d M, Y', strtotime($row['created_at']))); ?></td>

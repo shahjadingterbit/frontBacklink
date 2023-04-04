@@ -225,9 +225,9 @@ class Theme extends \App\Core\Theme
             $segments = request()->segments();
             if(count($segments) == 2 && (in_array('create',$segments) || in_array('headings',$segments))) {
                 $scope .= '.'.$segments[0].'.*.'.$segments[1];   
-            } else if(count($segments) == 3 && (in_array('backlinks',$segments) || in_array('project_logs',$segments) ) ) {
+            } else if(count($segments) == 3 && (in_array('backlinks',$segments) || in_array('domains',$segments) ) ) {
                 $scope .= '.'.$segments[0].'.*.'.$segments[1];   
-            } else if(count($segments) == 4 && (in_array('backlinks',$segments)) ) {
+            } else if(count($segments) == 4 && (in_array('backlinks',$segments) || in_array('domains',$segments)) ) {
                 $scope .= '.'.$segments[0].'.*.'.$segments[1];   
             } else {
                 foreach ($segments as $key => $value) {

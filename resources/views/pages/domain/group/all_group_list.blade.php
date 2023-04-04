@@ -64,7 +64,7 @@
                             <div class="d-flex align-items-center mb-8">
                                 <!--begin::Checkbox-->
                                 <div class="form-check form-check-custom form-check-solid mx-5">
-                                    <input class="form-check-input" type="checkbox" name="group[]" value="{{ $row['id'] }}" @if(in_array($row['id'],$assignedGroupIds)) checked @endif>
+                                    <input class="form-check-input" type="checkbox" name="group[]" value="{{ $row['group_id'] }}" @if(in_array($row['group_id'],$assignedGroupIds)) checked @endif>
                                 </div>
                                 <!--end::Checkbox-->
                                 <!--begin::Description-->
@@ -72,7 +72,7 @@
                                     {{ $row['group_name'] }}
                                 </div>
                                 <!--end::Description-->
-                                @if(in_array($row['id'],$assignedGroupIds))
+                                @if(in_array($row['group_id'],$assignedGroupIds))
                                 <span class="badge badge-light-success fs-8 fw-bold">Assigned</span>
                                 @else
                                 <span class="badge badge-light-danger fs-8 fw-bold">Not Assigned</span>

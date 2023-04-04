@@ -1,5 +1,14 @@
-<x-base-layout>
-    {{ theme()->getView('layout/demo1/toolbars/_toolbar-1') }}
+<?php if (isset($component)) { $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a = $component; } ?>
+<?php $component = App\View\Components\BaseLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('base-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\BaseLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+    <?php echo e(theme()->getView('layout/demo1/toolbars/_toolbar-1')); ?>
+
     <div class="col-xl-12 mb-5 mb-xl-10">
         <!--begin::Table Widget 4-->
         <div class="card card-flush h-xl-100">
@@ -7,11 +16,11 @@
             <div class="card-header pt-7">
                 <!--begin::Title-->
                 <h3 class="card-title align-items-start flex-column" style="display:inline">
-                    <a href="{{ route('groups.index') }}"> All Groups </a> >>
-                    <a href="{{ route('groups.backlinks.index',$groupId) }}"> Backlink of {{ $groupName }} </a> >> 
-                    @if(!empty($groupName))
-                    All Backlink List
-                    @endif
+                    <a href="<?php echo e(route('users.index')); ?>"> All Users </a> >>
+                    <a href="<?php echo e(route('userDomainList',$userId)); ?>"> Domain of <?php echo e($userName); ?> </a> >>
+                    <?php if(!empty($userName)): ?>
+                    All Domain List
+                    <?php endif; ?>
                 </h3>
 
                 <!--end::Title-->
@@ -21,17 +30,17 @@
                     <div class="d-flex flex-stack flex-wrap gap-4">
                         <div class="d-flex align-items-center py-1">
                             <div>
-                                @if(count($assignedBacklinkIds) > 0)
-                                @php
-                                $message = "Update Backlink";
+                                <?php if(count($assignedDomainIds) > 0): ?>
+                                <?php
+                                $message = "Update Domain";
                                 $method = "PUT";
-                                @endphp
-                                @else
-                                @php
-                                $message = "Assign Backlink";
+                                ?>
+                                <?php else: ?>
+                                <?php
+                                $message = "Add Domain";
                                 $method = "POST";
-                                @endphp
-                                @endif
+                                ?>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <!--begin::Search-->
@@ -54,52 +63,55 @@
             </div>
 
             <!--end::Card header-->
-            <form id="assign_backlink_to_group_form" class="form" method="POST" action="{{ route('addAndUpdateBacklink') }}" enctype="multipart/form-data">
-                @csrf
+            <form id="assign_domain_to_group_form" class="form" method="POST" action="<?php echo e(route('addAndUpdateDomain')); ?>" enctype="multipart/form-data">
+                <?php echo csrf_field(); ?>
                 <!--begin::Card body-->
                 <div class="col-xl-12">
                     <!--begin::List Widget 3-->
                     <div class="card card-xl-stretch mb-5 mb-xl-8">
                         <!--begin::Body-->
                         <div class="card-body pt-2">
-                            @forelse($allBacklinkList as $row)
+                            <?php $__empty_1 = true; $__currentLoopData = $allDomainList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                             <!--begin::Item-->
                             <div class="d-flex align-items-center mb-8">
                                 <!--begin::Checkbox-->
                                 <div class="form-check form-check-custom form-check-solid mx-5">
-                                    <input class="form-check-input" type="checkbox" name="backlink[]" value="{{ $row['id'] }}" @if(in_array($row['id'],$assignedBacklinkIds)) checked @endif>
+                                    <input class="form-check-input" type="checkbox" name="domain[]" value="<?php echo e($row['domain_id']); ?>" <?php if(in_array($row['domain_id'],$assignedDomainIds)): ?> checked <?php endif; ?>>
                                 </div>
                                 <!--end::Checkbox-->
                                 <!--begin::Description-->
                                 <div class="flex-grow-1">
-                                    {{ $row['backlink_domain'] }}
+                                    <?php echo e($row['domain']); ?>
+
                                 </div>
                                 <!--end::Description-->
-                                @if(in_array($row['id'],$assignedBacklinkIds))
+                                <?php if(in_array($row['domain_id'],$assignedDomainIds)): ?>
                                 <span class="badge badge-light-success fs-8 fw-bold">Assigned</span>
-                                @else
+                                <?php else: ?>
                                 <span class="badge badge-light-danger fs-8 fw-bold">Not Assigned</span>
-                                @endif
+                                <?php endif; ?>
                             </div>
                             <!--end:Item-->
-                            @empty
-                            <p>No Backlink</p>
-                            @endforelse
-                            <input class="form-check-input" type="hidden" name="group_id" value="{{ $groupId }}">
-                            <input class="form-check-input" type="hidden" name="method" value="{{ $method }}">
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                            <p>No Domain</p>
+                            <?php endif; ?>
+                            <input class="form-check-input" type="hidden" name="user_id" value="<?php echo e($userId); ?>">
+                            <input class="form-check-input" type="hidden" name="method" value="<?php echo e($method); ?>">
                         </div>
                         <!--end::Body-->
                     </div>
                     <!--end:List Widget 3-->
                 </div>
                 <!--end::Card body-->
+                <?php if(count($allDomainList) > 0): ?>
                 <div class="card-footer d-flex justify-content-end py-6 px-9">
                     <button type="reset" class="btn btn-white btn-active-light-primary me-2">Discard</button>
 
-                    <button type="submit" class="btn btn-primary" id="assign_backlink_group">
+                    <button type="submit" class="btn btn-primary" id="assign_domain_group">
                         <!--begin::Indicator-->
                         <span class="indicator-label">
-                            {{$message}}
+                            <?php echo e($message); ?>
+
                         </span>
                         <span class="indicator-progress">
                             Please wait...
@@ -108,10 +120,16 @@
                         <!--end::Indicator-->
                     </button>
                 </div>
+                <?php endif; ?>
             </form>
             <!--end::Form-->
         </div>
         <!--end::Table Widget 4-->
     </div>
 
-</x-base-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a)): ?>
+<?php $component = $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a; ?>
+<?php unset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a); ?>
+<?php endif; ?><?php /**PATH C:\xampp\htdocs\project-backlink\resources\views/pages/user/domain/domain_list.blade.php ENDPATH**/ ?>

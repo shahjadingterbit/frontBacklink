@@ -11,12 +11,12 @@
 
     
 
-    @if (auth()->check())
+    @if (Session::get('accessToken'))
         <!--begin::User menu-->
         <div class="d-flex align-items-center {{ $itemClass }}" id="kt_header_user_menu_toggle">
             <!--begin::Menu wrapper-->
             <div class="cursor-pointer symbol {{ $userAvatarClass }}" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="{{ (theme()->isRtl() ? "bottom-start" : "bottom-end") }}">
-                <img src="{{ auth()->user()->avatarUrl }}" alt="user"/>
+                <img src="http://localhost/laravel/public/demo1/media/avatars/blank.png" alt="user"/>
             </div>
             {{ theme()->getView('partials/topbar/_user-menu') }}
             <!--end::Menu wrapper-->

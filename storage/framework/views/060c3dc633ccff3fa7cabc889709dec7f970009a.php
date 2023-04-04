@@ -11,12 +11,12 @@
 
     
 
-    <?php if(auth()->check()): ?>
+    <?php if(Session::get('accessToken')): ?>
         <!--begin::User menu-->
         <div class="d-flex align-items-center <?php echo e($itemClass); ?>" id="kt_header_user_menu_toggle">
             <!--begin::Menu wrapper-->
             <div class="cursor-pointer symbol <?php echo e($userAvatarClass); ?>" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="<?php echo e((theme()->isRtl() ? "bottom-start" : "bottom-end")); ?>">
-                <img src="<?php echo e(auth()->user()->avatarUrl); ?>" alt="user"/>
+                <img src="http://localhost/laravel/public/demo1/media/avatars/blank.png" alt="user"/>
             </div>
             <?php echo e(theme()->getView('partials/topbar/_user-menu')); ?>
 

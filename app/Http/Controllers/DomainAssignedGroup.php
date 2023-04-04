@@ -54,7 +54,7 @@ class DomainAssignedGroup extends Controller
         $domainInformation = $domainDetail->json();
         $data['domainId'] =  $domainId ?? '';
         $data['domainName'] =  $domainInformation[0]['domain'] ?? '';
-        $allgroups = Http::get($this->endpoint_url . '/groups');
+        $allgroups = Http::get($this->endpoint_url . '/groupAssignedBacklink/groupListHasBacklinks');
         $allGroupList = $allgroups->json();
         $response = Http::get($this->endpoint_url . '/domainAssignedGroup/' . $domainId);
         $domainGroupList = $response->json();

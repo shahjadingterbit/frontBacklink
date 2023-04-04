@@ -225,8 +225,8 @@ return array(
                 ),
             ),
             'backlinks' => array(
-                'title' => 'Group Backlinks',
-                'path'  => '/groups/backlinks/assign',
+                'title' => 'Groups',
+                'path'  => '',
                 'buttonName' => '',
             ),
         ),
@@ -276,6 +276,18 @@ return array(
         ),
     ),
 
+    'domains'  => array(
+        'title' => 'CMS Domain',
+        '*' => array(
+            'title' => 'CMS Domain',
+            'groups' => array(
+                'title' => 'CMS Domain',
+                'path'  => '/domains/groups/assign',
+                'buttonName' => '',
+            ),
+        ),
+    ),
+
     'users'  => array(
         'title' => 'User List',
         '*' => array(
@@ -306,6 +318,11 @@ return array(
                         ),
                     ),
                 ),
+            ),
+            'domains' => array(
+                'title' => 'Domain List',
+                'path'  => '/users/domains/assign',
+                'buttonName' => '',
             ),
         ),
     ),

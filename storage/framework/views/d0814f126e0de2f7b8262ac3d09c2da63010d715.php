@@ -16,8 +16,8 @@
             <div class="card-header pt-7">
                 <!--begin::Title-->
                 <h3 class="card-title align-items-start flex-column" style="display:inline">
-                    <?php if(!empty($domainName)): ?>
-                    Group List of <a href="<?php echo e(route('groups.index')); ?>">  <?php echo e($domainName); ?> </a>
+                    <?php if(!empty($userName)): ?>
+                    Domain List of <a href="<?php echo e(route('users.index')); ?>"> <?php echo e($userName); ?> </a>
                     <?php endif; ?>
                 </h3>
                 <!--end::Title-->
@@ -27,12 +27,12 @@
                     <div class="d-flex flex-stack flex-wrap gap-4">
                         <div class="d-flex align-items-center py-1">
                             <div>
-                                <?php if(count($domainGroupList) > 0): ?>
-                                <?php $message = "Update Group"; ?>
+                                <?php if(count($userDomainList) > 0): ?>
+                                <?php $message = "Add Domain"; ?>
                                 <?php else: ?>
-                                <?php $message = "Assign Group"; ?>
+                                <?php $message = "Assign Domain"; ?>
                                 <?php endif; ?>
-                                <a href="<?php echo e(route('assignGroup', $domainId)); ?>" class="btn btn-sm btn-primary fw-bolder"><?php echo e($message); ?>
+                                <a href="<?php echo e(route('assignDomain', $userId)); ?>" class="btn btn-sm btn-primary fw-bolder"><?php echo e($message); ?>
 
                                 </a>
                             </div>
@@ -67,7 +67,7 @@
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">#</th>
-                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Group</th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Domain</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -75,16 +75,16 @@
                             <!--begin::Table body-->
                             <tbody class="fw-bold text-gray-600">
                                 <?php $i = 0; ?>
-                                <?php $__empty_1 = true; $__currentLoopData = $domainGroupList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                <?php $__empty_1 = true; $__currentLoopData = $userDomainList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
                                 <?php $i++; ?>
                                 <tr class="odd">
                                     <td>
                                         <a href="/metronic8/demo8/../demo8/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary"><?php echo e($i); ?></a>
                                     </td>
-                                    <td class="text-end"><?php echo e($row['group_name']); ?> </td>
+                                    <td class="text-end"><?php echo e($row['domain']); ?> </td>
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
-                                <p>No Group</p>
+                                <p>No Domain</p>
                                 <?php endif; ?>
                             </tbody>
                             <!--end::Table body-->
@@ -107,4 +107,4 @@
 <?php if (isset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a)): ?>
 <?php $component = $__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a; ?>
 <?php unset($__componentOriginal6121507de807c98d4e75d845c5e3ae4201a89c9a); ?>
-<?php endif; ?><?php /**PATH C:\xampp\htdocs\project-backlink\resources\views/pages/domain/group/index.blade.php ENDPATH**/ ?>
+<?php endif; ?><?php /**PATH C:\xampp\htdocs\project-backlink\resources\views/pages/user/domain/index.blade.php ENDPATH**/ ?>

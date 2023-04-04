@@ -74,7 +74,7 @@
                                     <td class="text-end">{{ $row['group_name'] }} </td>
                                 </tr>
                                 @empty
-                                <p>No Backlink</p>
+                                <p>No Group</p>
                                 @endforelse
                             </tbody>
                             <!--end::Table body-->

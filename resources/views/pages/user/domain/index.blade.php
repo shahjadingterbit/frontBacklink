@@ -7,8 +7,8 @@
             <div class="card-header pt-7">
                 <!--begin::Title-->
                 <h3 class="card-title align-items-start flex-column" style="display:inline">
-                    @if(!empty($groupName))
-                    Backlink List of <a href="{{ route('groups.index') }}">  {{ $groupName }} </a>
+                    @if(!empty($userName))
+                    Domain List of <a href="{{ route('users.index') }}"> {{ $userName }} </a>
                     @endif
                 </h3>
                 <!--end::Title-->
@@ -18,12 +18,12 @@
                     <div class="d-flex flex-stack flex-wrap gap-4">
                         <div class="d-flex align-items-center py-1">
                             <div>
-                                @if(count($groupBacklinkList) > 0)
-                                @php $message = "Update Backlink"; @endphp
+                                @if(count($userDomainList) > 0)
+                                @php $message = "Add Domain"; @endphp
                                 @else
-                                @php $message = "Assign Backlink"; @endphp
+                                @php $message = "Assign Domain"; @endphp
                                 @endif
-                                <a href="{{ route('assignBacklink', $groupId) }}" class="btn btn-sm btn-primary fw-bolder">{{$message}}
+                                <a href="{{ route('assignDomain', $userId) }}" class="btn btn-sm btn-primary fw-bolder">{{$message}}
                                 </a>
                             </div>
                         </div>
@@ -56,8 +56,8 @@
                             <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                    <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Backlink ID</th>
-                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Backlink</th>
+                                    <th class="min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">#</th>
+                                    <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 100px;">Domain</th>
                                 </tr>
                                 <!--end::Table row-->
                             </thead>
@@ -65,16 +65,16 @@
                             <!--begin::Table body-->
                             <tbody class="fw-bold text-gray-600">
                                 @php $i = 0; @endphp
-                                @forelse($groupBacklinkList as $row)
+                                @forelse($userDomainList as $row)
                                 @php $i++; @endphp
                                 <tr class="odd">
                                     <td>
                                         <a href="/metronic8/demo8/../demo8/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary">{{ $i }}</a>
                                     </td>
-                                    <td class="text-end">{{ $row['backlink_domain'] }} </td>
+                                    <td class="text-end">{{ $row['domain'] }} </td>
                                 </tr>
                                 @empty
-                                <p>No Backlink</p>
+                                <p>No Domain</p>
                                 @endforelse
                             </tbody>
                             <!--end::Table body-->

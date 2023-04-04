@@ -1,4 +1,12 @@
-<x-auth-layout>
+<?php if (isset($component)) { $__componentOriginal7b6721487b7b8dd63e67398e09f7d70f121b9aa3 = $component; } ?>
+<?php $component = App\View\Components\AuthLayout::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
+<?php $component->withName('auth-layout'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag && $constructor = (new ReflectionClass(App\View\Components\AuthLayout::class))->getConstructor()): ?>
+<?php $attributes = $attributes->except(collect($constructor->getParameters())->map->getName()->all()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
 <div class="main_login_d mx-auto">
    <div class="row">
       <div class="w-lg-500px h-600px shadow-sm p-10 p-lg-15" style="            ">
@@ -20,11 +28,12 @@
          >
            <!--begin::Title-->
            <h1 class="text-dark mb-3 mt-15 fw-b-bold fs-2x text-center">
-                {{ __('Sign In to Backlink') }}
+                <?php echo e(__('Sign In to Backlink')); ?>
+
             </h1>
             <!--end::Title-->
-            <form method="POST" action="{{ route('userlogin') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form">
-            @csrf
+            <form method="POST" action="<?php echo e(route('userlogin')); ?>" class="form w-100" novalidate="novalidate" id="kt_sign_in_form">
+            <?php echo csrf_field(); ?>
             <!--begin::Heading-->
             <div class="text-center mb-10">
                <!--begin::Title-->
@@ -37,7 +46,7 @@
             <!--begin::Input group-->
             <div class="fv-row mb-5 fv-plugins-icon-container">
                <!--begin::Label-->
-               <label class="form-label fs-3 text-dark-600 fw-normal mb-4">{{ __('Username') }}</label>
+               <label class="form-label fs-3 text-dark-600 fw-normal mb-4"><?php echo e(__('Username')); ?></label>
                <!--end::Label-->
                <!--begin::Input-->
                <input  class="form-control rounded-0 pt-4 pl-r-5 pb-4 fs-2 fw-light" placeholder="Username" type="text" name="email" autocomplete="off" value="" required autofocus />
@@ -64,7 +73,7 @@
             <div class="fv-row mb-10">
                <label class="form-check form-check-custom form-check-solid">
                     <input class="form-check-input" type="checkbox" name="remember"/>
-                    <span  class="form-check-label fw-normal text-gray-700 fs-6" >{{ __('Remember me') }}</span>
+                    <span  class="form-check-label fw-normal text-gray-700 fs-6" ><?php echo e(__('Remember me')); ?></span>
                </label>
             </div>
             <!--end::Input group-->
@@ -86,14 +95,19 @@
       </div>
    </div>
 </div>
-</x-auth-layout>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal7b6721487b7b8dd63e67398e09f7d70f121b9aa3)): ?>
+<?php $component = $__componentOriginal7b6721487b7b8dd63e67398e09f7d70f121b9aa3; ?>
+<?php unset($__componentOriginal7b6721487b7b8dd63e67398e09f7d70f121b9aa3); ?>
+<?php endif; ?>
 <style>
     .fw-b-bold {
         font-weight: 800;
     }
     .main_login_d .w-lg-500px:first-child {
         background-color: #1d1f38;
-        background-image: url({{ asset(theme()->getMediaUrlPath() . 'custom/bg-login.png') }});
+        background-image: url(<?php echo e(asset(theme()->getMediaUrlPath() . 'custom/bg-login.png')); ?>);
         display: flex;
         justify-content: center;
         background-position: -815px;
@@ -109,4 +123,4 @@
     .main_login_d input:focus {
     border: 1px solid #fbb03b;
     }
-</style>
+</style><?php /**PATH C:\xampp\htdocs\project-backlink\resources\views/auth/login.blade.php ENDPATH**/ ?>
