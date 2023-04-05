@@ -81,7 +81,7 @@
                                     <td>
                                         <a href="/metronic8/demo8/../demo8/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary"><?php echo e($i); ?></a>
                                     </td>
-                                    <td class="text-end"><?php echo e($row['domain']); ?> </td>
+                                    <td class="text-end"><a href="<?php echo e(route('domainGroupList',$row['domain_id'])); ?>"> <?php echo e($row['domain']); ?> <a> </td>
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                                 <p>No Domain</p>

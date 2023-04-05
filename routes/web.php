@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\SocialiteLoginController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\BacklinkController;
 use App\Http\Controllers\GroupController;
@@ -28,18 +27,19 @@ use Illuminate\Support\Facades\Route;
 //     return redirect('index');
 // });
 
-$menu = theme()->getMenu();
-array_walk($menu, function ($val) {
-    if (isset($val['path'])) {
-        $route = Route::get($val['path'], [PagesController::class, 'index']);
-    }
-});
+// $menu = theme()->getMenu();
+// array_walk($menu, function ($val) {
+//     if (isset($val['path'])) {
+//         $route = Route::get($val['path'], [PagesController::class, 'index']);
+//     }
+// });
 
 Route::post('userlogin', [LoginController::class, 'userlogin'])->name('userlogin');
-Route::get('/login', [LoginController::class, 'create'])->name('create');
+Route::get('/login', [LoginController::class, 'index'])->name('index');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::middleware('checksession')->group(function () {
+    Route::get('/', [PagesController::class, 'index']);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::get('users/domains/{userId}', [UserAssignedDomain::class, 'index'])->name('userDomainList');
@@ -56,5 +56,3 @@ Route::middleware('checksession')->group(function () {
     Route::get('groups/backlinks/assign/{groupId}', [BacklinkAssignedGroup::class, 'assign'])->name('assignBacklink');
     Route::post('groups/backlinks/addAndUpdate', [BacklinkAssignedGroup::class, 'addAndUpdate'])->name('addAndUpdateBacklink');
 });
-
-

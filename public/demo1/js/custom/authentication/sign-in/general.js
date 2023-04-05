@@ -63,6 +63,7 @@ var KTSigninGeneral = function () {
                     // Simulate ajax request
                     axios.post(submitButton.closest('form').getAttribute('action'), new FormData(form))
                         .then(function (response) {
+                            console.log(response);
                             // Show message popup. For more info check the plugin's official documentation: https://sweetalert2.github.io/
                             Swal.fire({
                                 text: "You have successfully logged in!",

@@ -23,7 +23,7 @@
                 {{ __('Sign In to Backlink') }}
             </h1>
             <!--end::Title-->
-            <form method="POST" action="{{ route('userlogin') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form">
+            <form method="POST" action="{{ route('userlogin') }}" class="form w-100" novalidate="novalidate" id="kt_sign_in_form"  autocomplete="off">
             @csrf
             <!--begin::Heading-->
             <div class="text-center mb-10">

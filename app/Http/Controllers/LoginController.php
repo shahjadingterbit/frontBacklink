@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
 use Session;
+
 class LoginController extends Controller
 {
     /**
@@ -18,10 +20,14 @@ class LoginController extends Controller
         $data = [];
         $data['username'] = $request->email;
         $data['password'] = $request->password;
-        $response = Http::post($this->endpoint_url . '/auth',$data);
+        $response = Http::post($this->endpoint_url . '/auth', $data);
         $userList = $response->json();
-        if($response->status() == 200) {
+        if ($response->status() == 200) {
             \Session::put('accessToken', $userList['accessToken']);
+        } else {
+            throw ValidationException::withMessages([
+                'email' => __('auth.failed'),
+            ]);
         }
     }
 
@@ -30,7 +36,7 @@ class LoginController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function index()
     {
         if (Session::get('accessToken')) {
             return redirect('/');

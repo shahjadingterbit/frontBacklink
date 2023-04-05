@@ -71,7 +71,7 @@
                                     <td>
                                         <a href="/metronic8/demo8/../demo8/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary">{{ $i }}</a>
                                     </td>
-                                    <td class="text-end">{{ $row['group_name'] }} </td>
+                                    <td class="text-end"><a href="{{route('groups.backlinks.index',$row['group_id'])}}">{{ $row['group_name'] }}</a> </td>
                                 </tr>
                                 @empty
                                 <p>No Group</p>

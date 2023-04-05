@@ -71,7 +71,7 @@
                                     <td>
                                         <a href="/metronic8/demo8/../demo8/apps/ecommerce/catalog/edit-product.html" class="text-gray-800 text-hover-primary">{{ $i }}</a>
                                     </td>
-                                    <td class="text-end">{{ $row['domain'] }} </td>
+                                    <td class="text-end"><a href="{{ route('domainGroupList',$row['domain_id']) }}"> {{ $row['domain'] }} <a> </td>
                                 </tr>
                                 @empty
                                 <p>No Domain</p>
